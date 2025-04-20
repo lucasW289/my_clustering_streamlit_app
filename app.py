@@ -13,20 +13,18 @@ st.set_page_config(page_title="k-Means Clustering App", layout="centered")
 # Set title
 st.title("k-Means Clustering Visualizer by Aung Phyo Linn")
 
-# Description
-st.subheader("Example Data for Visualization")
-st.markdown("This demo uses example 2D data to illustrate clustering results.")
 
 # Generate synthetic data
-X, _ = make_blobs(n_samples=300, centers=loaded_model.n_clusters, cluster_std=0.60, random_state=42)
+X, _ = make_blobs(n_samples=300, centers=loaded_model.n_clusters, cluster_std=0.60, random_state=0)
 
 # Predict using the loaded model
 y_kmeans = loaded_model.predict(X)
 
 # Plot the result
 fig, ax = plt.subplots()
-scatter = ax.scatter(X[:, 0], X[:, 1], c=y_kmeans, cmap='viridis', s=50)
+scatter = ax.scatter(X[:, 0], X[:, 1], c=y_kmeans, cmap='viridis')
 centers = loaded_model.cluster_centers_
-ax.scatter(centers[:, 0], centers[:, 1], c='red', s=200, alpha=0.75, marker='X', label='Centroids')
+ax.scatter(loaded_model.cluster_centers_[:,0], loaded_model.cluster_centers_[:,1], s=300, c='red')
+ax.set_title('k-means Clustering')
 ax.legend()
 st.pyplot(fig)
